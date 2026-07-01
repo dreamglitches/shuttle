@@ -18,12 +18,12 @@ else
 fi
 
 # 1. Apply schema
-wrangler d1 execute "$DB_NAME" $FLAG --file=../schema.sql
+pnpm run wrangler d1 execute "$DB_NAME" $FLAG --file=../schema.sql
 
 echo "✓ Schema applied."
 
 # 2. Seed default settings (idempotent)
-wrangler d1 execute "$DB_NAME" $FLAG --command="
+pnpm run wrangler d1 execute "$DB_NAME" $FLAG --command="
 INSERT OR IGNORE INTO settings_global (key, value) VALUES
   ('poll_interval',        '60'),
   ('upterm_relay',         'ssh.uptermd.dev:22'),
@@ -39,7 +39,7 @@ echo "✓ Default settings seeded."
 # 3. Seed a default auth record (password: 'changeme-immediately')
 #    sha256('changeme-immediately' + 'default-salt') — REPLACE THIS via /api/auth/change-password
 #    This is just a placeholder so the login endpoint doesn't error before first setup.
-wrangler d1 execute "$DB_NAME" $FLAG --command="
+pnpm run wrangler d1 execute "$DB_NAME" $FLAG --command="
 INSERT OR IGNORE INTO auth (id, password_hash, password_salt)
 VALUES (
   1,
