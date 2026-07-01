@@ -1,0 +1,11 @@
+# Normalise line endings in the repo to LF on commit, checkout as-is on Windows
+* text=auto eol=lf
+
+# Binaries — do not touch
+*.gz      binary
+*.bin     binary
+*.png     binary
+*.jpg     binary
+*.ico     binary
+*.woff2   binary
+*.pem     binary

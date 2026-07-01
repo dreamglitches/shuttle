@@ -1,0 +1,21 @@
+{
+  "name": "shuttle-manager",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "bash scripts/init-db.sh",
+    "db:init:remote": "bash scripts/init-db.sh --remote",
+    "db:init:local": "wrangler d1 execute shuttle-db --local --file=schema.sql",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "typescript": "^5.5.4",
+    "wrangler": "^3.78.10"
+  },
+  "dependencies": {
+    "itty-router": "^5.0.18"
+  }
+}

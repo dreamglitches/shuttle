@@ -1,0 +1,31 @@
+name = "shuttle-manager"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Update this route when you have your real domain
+# route = { pattern = "shuttle-manager.yourdomain.workers.dev/*", zone_name = "yourdomain.workers.dev" }
+
+[[d1_databases]]
+binding  = "SHUTTLE_DB"
+database_name = "shuttle-db"
+database_id   = "1167cb8a-b484-4241-b1dc-0fa7ac394bfc"
+
+[[kv_namespaces]]
+binding    = "SHUTTLE_RATE"
+id         = "f1467548b3ad44839a7bdeeb53f9e099"
+preview_id = "f1467548b3ad44839a7bdeeb53f9e099"
+
+[assets]
+directory = "../web/dist"
+
+[triggers]
+crons = [
+  "0 3 * * *",   # 03:00 UTC daily — retention purge + staleness check
+  "*/5 * * * *"  # every 5 min — staleness check (rapid detection)
+]
+
+[vars]
+# Telegram bot token — set via wrangler secret put TELEGRAM_BOT_TOKEN
+# Do NOT commit real values here.
+ENVIRONMENT = "production"

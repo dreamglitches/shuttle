@@ -1,0 +1,41 @@
+# ─── Secrets — never commit ───────────────────────────────────────────────────
+*.pem
+*.key
+*.p12
+.env
+.env.*
+!.env.example
+
+# ─── Update signing key (keep offline) ────────────────────────────────────────
+update_private.pem
+update_public.pem
+
+# ─── Go client ────────────────────────────────────────────────────────────────
+client/dist/
+# Placeholder .gz files are committed; real populated ones are not (too large)
+# To regenerate: make embed
+# client/embed/*/  ← intentionally tracked (placeholders only)
+
+# ─── Manager (Cloudflare Worker) ──────────────────────────────────────────────
+manager/node_modules/
+manager/.wrangler/
+manager/.dev.vars
+
+# ─── Web frontend (SvelteKit) ─────────────────────────────────────────────────
+web/node_modules/
+web/.svelte-kit/
+web/dist/
+
+# ─── OS / Editor ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# ─── pnpm ─────────────────────────────────────────────────────────────────────
+# pnpm-lock.yaml is intentionally committed for reproducible installs
