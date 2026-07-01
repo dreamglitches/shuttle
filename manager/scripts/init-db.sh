@@ -18,7 +18,7 @@ else
 fi
 
 # 1. Apply schema
-pnpm wrangler d1 execute "$DB_NAME" $FLAG --file=../schema.sql
+pnpm wrangler d1 execute "$DB_NAME" $FLAG --file=./schema.sql
 
 echo "✓ Schema applied."
 
