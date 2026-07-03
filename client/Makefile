@@ -20,7 +20,8 @@ TMUX_VERSION   := 3.7b
 all: embed build
 
 # ─── Download & compress embedded binaries ────────────────────────────────────
-embed: embed/amd64/.done embed/arm64/.done embed/386/.done
+# embed: embed/amd64/.done embed/arm64/.done embed/386/.done
+embed: embed/amd64/.done embed/arm64/.done 
 
 embed/amd64/.done:
 	@mkdir -p embed/amd64
