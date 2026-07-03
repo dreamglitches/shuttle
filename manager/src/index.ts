@@ -69,7 +69,7 @@ function withAuth(handler: (req: Request, env: Env, params: Record<string, strin
   return async (req: Request, env: Env, ctx: { params?: Record<string, string> }) => {
     const authed = await verifySessionAuth(req, env);
     if (!authed) return error(401, 'Unauthorized');
-    return handler(req, env, ctx.params ?? {});
+    return handler(req, env, ctx?.params ?? {});
   };
 }
 
