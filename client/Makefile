@@ -7,13 +7,13 @@
 
 PSK         ?= CHANGEME
 VERSION     ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
-MODULE      := github.com/shuttle-fleet/shuttle/client
+MODULE      := github.com/dreamglitches/shuttle/client
 LDFLAGS     := -s -w -X $(MODULE)/internal/auth.PSK=$(PSK) -X main.Version=$(VERSION)
 LDFLAGS_DEV := -X $(MODULE)/internal/auth.PSK=$(PSK) -X main.Version=$(VERSION)-dev
 
 # Upterm + tmux versions to embed
-UPTERM_VERSION := 0.13.0
-TMUX_VERSION   := 3.4
+UPTERM_VERSION := 0.24.0
+TMUX_VERSION   := 3.7b
 
 .PHONY: all embed build build-dev test clean
 
@@ -25,7 +25,7 @@ embed: embed/amd64/.done embed/arm64/.done embed/386/.done
 embed/amd64/.done:
 	@mkdir -p embed/amd64
 	@echo "Downloading tmux amd64..."
-	curl -fsSL "https://github.com/nicowillis/tmux-static/releases/download/$(TMUX_VERSION)/tmux-$(TMUX_VERSION)-x86_64" -o embed/amd64/tmux
+	curl -fsSL "https://github.com/tmux/tmux-builds/releases/download/v$(TMUX_VERSION)/tmux-$(TMUX_VERSION)-linux-x86_64.tar.gz" | tar -xz -C embed/amd64/ tmux
 	@echo "Downloading upterm amd64..."
 	curl -fsSL "https://github.com/owenthereal/upterm/releases/download/v$(UPTERM_VERSION)/upterm_linux_amd64.tar.gz" | tar -xz -C embed/amd64/ upterm
 	gzip -f embed/amd64/tmux
@@ -35,25 +35,26 @@ embed/amd64/.done:
 embed/arm64/.done:
 	@mkdir -p embed/arm64
 	@echo "Downloading tmux arm64..."
-	curl -fsSL "https://github.com/nicowillis/tmux-static/releases/download/$(TMUX_VERSION)/tmux-$(TMUX_VERSION)-aarch64" -o embed/arm64/tmux
+	curl -fsSL "https://github.com/tmux/tmux-builds/releases/download/v$(TMUX_VERSION)/tmux-$(TMUX_VERSION)-linux-arm64.tar.gz" | tar -xz -C embed/arm64/ tmux
 	@echo "Downloading upterm arm64..."
 	curl -fsSL "https://github.com/owenthereal/upterm/releases/download/v$(UPTERM_VERSION)/upterm_linux_arm64.tar.gz" | tar -xz -C embed/arm64/ upterm
 	gzip -f embed/arm64/tmux
 	gzip -f embed/arm64/upterm
 	@touch embed/arm64/.done
 
-embed/386/.done:
-	@mkdir -p embed/386
-	@echo "Downloading tmux 386..."
-	curl -fsSL "https://github.com/nicowillis/tmux-static/releases/download/$(TMUX_VERSION)/tmux-$(TMUX_VERSION)-i686" -o embed/386/tmux
-	@echo "Downloading upterm 386..."
-	curl -fsSL "https://github.com/owenthereal/upterm/releases/download/v$(UPTERM_VERSION)/upterm_linux_386.tar.gz" | tar -xz -C embed/386/ upterm
-	gzip -f embed/386/tmux
-	gzip -f embed/386/upterm
-	@touch embed/386/.done
+# embed/386/.done:
+# 	@mkdir -p embed/386
+# 	@echo "Downloading tmux 386..."
+# 	curl -fsSL "https://github.com/nicowillis/tmux-static/releases/download/$(TMUX_VERSION)/tmux-$(TMUX_VERSION)-i686" -o embed/386/tmux
+# 	@echo "Downloading upterm 386..."
+# 	curl -fsSL "https://github.com/owenthereal/upterm/releases/download/v$(UPTERM_VERSION)/upterm_linux_386.tar.gz" | tar -xz -C embed/386/ upterm
+# 	gzip -f embed/386/tmux
+# 	gzip -f embed/386/upterm
+# 	@touch embed/386/.done
 
 # ─── Release builds ───────────────────────────────────────────────────────────
-build: dist/shuttled-linux-amd64 dist/shuttled-linux-arm64 dist/shuttled-linux-386
+# build: dist/shuttled-linux-amd64 dist/shuttled-linux-arm64 dist/shuttled-linux-386
+build: dist/shuttled-linux-amd64 dist/shuttled-linux-arm64
 
 dist/shuttled-linux-amd64:
 	@mkdir -p dist
@@ -69,12 +70,12 @@ dist/shuttled-linux-arm64:
 	  -o dist/shuttled-linux-arm64 ./cmd/shuttled
 	@echo "Built dist/shuttled-linux-arm64 ($(shell du -h dist/shuttled-linux-arm64 | cut -f1))"
 
-dist/shuttled-linux-386:
-	@mkdir -p dist
-	GOOS=linux GOARCH=386 go build -tags release \
-	  -ldflags "$(LDFLAGS)" \
-	  -o dist/shuttled-linux-386 ./cmd/shuttled
-	@echo "Built dist/shuttled-linux-386 ($(shell du -h dist/shuttled-linux-386 | cut -f1))"
+# dist/shuttled-linux-386:
+# 	@mkdir -p dist
+# 	GOOS=linux GOARCH=386 go build -tags release \
+# 	  -ldflags "$(LDFLAGS)" \
+# 	  -o dist/shuttled-linux-386 ./cmd/shuttled
+# 	@echo "Built dist/shuttled-linux-386 ($(shell du -h dist/shuttled-linux-386 | cut -f1))"
 
 # ─── Dev build (with logging, no release tag) ─────────────────────────────────
 build-dev:
