@@ -1,3 +1,3 @@
-module github.com/shuttle-fleet/shuttle/client
+module github.com/dreamglitches/shuttle/client
 
 go 1.22
