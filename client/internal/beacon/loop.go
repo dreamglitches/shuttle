@@ -12,17 +12,17 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/shuttle-fleet/shuttle/client/internal/auth"
+	"github.com/dreamglitches/shuttle/client/internal/auth"
 )
 
 // Settings received from the manager, propagated without restart.
 type Settings struct {
-	PollInterval      int    `json:"poll_interval"`
-	UptermRelay       string `json:"upterm_relay"`
-	AuthorizedKeys    string `json:"authorized_keys"`
-	OutputCapKB       int    `json:"output_cap_kb"`
-	RetentionDays     int    `json:"retention_days"`
-	ManagerPrimaryURL string `json:"manager_primary_url"`
+	PollInterval       int    `json:"poll_interval"`
+	UptermRelay        string `json:"upterm_relay"`
+	AuthorizedKeys     string `json:"authorized_keys"`
+	OutputCapKB        int    `json:"output_cap_kb"`
+	RetentionDays      int    `json:"retention_days"`
+	ManagerPrimaryURL  string `json:"manager_primary_url"`
 	ManagerFallbackURL string `json:"manager_fallback_url"`
 }
 
@@ -35,11 +35,11 @@ type PendingAction struct {
 
 // BeaconRequest is the payload sent to the manager on each poll.
 type BeaconRequest struct {
-	ServerID        string   `json:"server_id"`
-	ClientVersion   string   `json:"client_version"`
-	Arch            string   `json:"arch"`
-	AckActionIDs    []string `json:"ack_action_ids"`
-	PrevBinaryExists bool    `json:"prev_binary_exists,omitempty"`
+	ServerID         string   `json:"server_id"`
+	ClientVersion    string   `json:"client_version"`
+	Arch             string   `json:"arch"`
+	AckActionIDs     []string `json:"ack_action_ids"`
+	PrevBinaryExists bool     `json:"prev_binary_exists,omitempty"`
 }
 
 // BeaconResponse is the decoded manager response.

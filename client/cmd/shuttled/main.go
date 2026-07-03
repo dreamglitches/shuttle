@@ -20,13 +20,13 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/shuttle-fleet/shuttle/client/internal/action"
-	"github.com/shuttle-fleet/shuttle/client/internal/beacon"
-	clientAuth "github.com/shuttle-fleet/shuttle/client/internal/auth"
-	"github.com/shuttle-fleet/shuttle/client/internal/exec"
-	"github.com/shuttle-fleet/shuttle/client/internal/identity"
-	"github.com/shuttle-fleet/shuttle/client/internal/session"
-	"github.com/shuttle-fleet/shuttle/client/internal/update"
+	"github.com/dreamglitches/shuttle/client/internal/action"
+	clientAuth "github.com/dreamglitches/shuttle/client/internal/auth"
+	"github.com/dreamglitches/shuttle/client/internal/beacon"
+	"github.com/dreamglitches/shuttle/client/internal/exec"
+	"github.com/dreamglitches/shuttle/client/internal/identity"
+	"github.com/dreamglitches/shuttle/client/internal/session"
+	"github.com/dreamglitches/shuttle/client/internal/update"
 )
 
 // Version is set at build time via -ldflags.
@@ -148,7 +148,7 @@ func dispatchAction(
 	installPath string,
 ) {
 	var (
-		resultData map[string]interface{}
+		resultData  map[string]interface{}
 		finalStatus = "completed"
 	)
 

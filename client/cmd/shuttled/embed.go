@@ -9,7 +9,7 @@ import (
 	"io"
 	"sync"
 
-	embedded "github.com/shuttle-fleet/shuttle/client/embed"
+	embedded "github.com/dreamglitches/shuttle/client/embed"
 )
 
 var (
